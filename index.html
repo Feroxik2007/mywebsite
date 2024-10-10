@@ -10,21 +10,67 @@
 <body>
     <h1 data-aos="fade-left">WELCOME!</h1>
     <nav>
-        <a>About</a>
-        <a>Contact</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
     </nav>
 
     <div class="logo">
         <img src="sigmaaaaa.jpg" alt="Logo" class="logo">
-    </div>
+    </div>  
 
-    <logo>
-        
-    </logo>
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2>About</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2>Contact</h2>
+        <p>Feel free to contact us at any time.</p>
+    </section>
+
+    <p3>Who i AM?</p3>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-        <script>
-          AOS.init();
-        </script>
+    <script>
+        AOS.init();
+    </script>
+
+    <!-- Custom Scroll Speed Script -->
+    <script>
+        document.querySelectorAll('.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                window.scrollTo({
+                    top: target.offsetTop,
+                    behavior: 'smooth'
+                });
+
+                // Slow down the smooth scroll effect
+                let duration = 1000; // Time in milliseconds (1000ms = 1 second)
+                let start = window.pageYOffset;
+                let startTime = null;
+
+                function animationScroll(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    let timeElapsed = currentTime - startTime;
+                    let run = ease(timeElapsed, start, target.offsetTop - start, duration);
+                    window.scrollTo(0, run);
+                    if (timeElapsed < duration) requestAnimationFrame(animationScroll);
+                }
+
+                function ease(t, b, c, d) {
+                    t /= d / 2;
+                    if (t < 1) return c / 2 * t * t + b;
+                    t--;
+                    return -c / 2 * (t * (t - 2) - 1) + b;
+                }
+
+                requestAnimationFrame(animationScroll);
+            });
+        });
+    </script>
 </body>
 </html>
